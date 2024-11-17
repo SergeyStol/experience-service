@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "c4d42709-a536-4eb5-92b4-9138c787f1be",
+		"name": "experience-service/v1.0 smoke-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8538440"
+	},
+	"item": [
+		{
+			"name": "/experiences -> 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const _ = require(\"lodash\");\r",
+							"\r",
+							"pm.test(\"/v1.0/experiences/ -> 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"let responseData = pm.response.json();\r",
+							"\r",
+							"let expectedData = {\r",
+							"    \"periodFrom\": \"2023-01-01\",\r",
+							"    \"periodTo\": \"2023-12-31\",\r",
+							"    \"presentTime\": \"2023-11-16\",\r",
+							"    \"industry\": \"Software Development\",\r",
+							"    \"company\": \"Tech Solutions Inc.\",\r",
+							"    \"position\": \"Senior Developer\",\r",
+							"    \"achievements\": \"Led a team of developers to create a new product.\",\r",
+							"    \"link\": \"http://example.com\",\r",
+							"    \"duties\": [\r",
+							"        {\r",
+							"            \"name\": \"Developed new features\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"name\": \"Fix bugs\"\r",
+							"        }\r",
+							"    ]\r",
+							"};\r",
+							"\r",
+							"function ignoreUuidCustomizer(objValue, srcValue, key) {\r",
+							"    if (key === \"uuid\") {\r",
+							"        return true;\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response contains the expected data (ignoring UUIDs)\", function () {\r",
+							"    let result = _.isMatchWith(responseData, expectedData, ignoreUuidCustomizer);\r",
+							"    pm.expect(result).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains uuid fields\", function () {\r",
+							"    pm.expect(responseData).to.have.property('uuid').that.is.a('string').and.is.not.empty;\r",
+							"    pm.expect(responseData).to.have.property('duties').that.is.an('array');\r",
+							"\r",
+							"    responseData.duties.forEach(function(duty, index) {\r",
+							"        pm.expect(duty).to.have.property('uuid').that.is.a('string').and.is.not.empty;\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"uuid\", pm.response.json().uuid);\r",
+							"\r",
+							"pm.collectionVariables.set(\"experience\", pm.response.json());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"periodFrom\": \"2023-01-01\",\r\n    \"periodTo\": \"2023-12-31\",\r\n    \"presentTime\": \"2023-11-16\",\r\n    \"industry\": \"Software Development\",\r\n    \"company\": \"Tech Solutions Inc.\",\r\n    \"position\": \"Senior Developer\",\r\n    \"achievements\": \"Led a team of developers to create a new product.\",\r\n    \"link\": \"http://example.com\",\r\n    \"duties\": [\r\n        {\r\n            \"name\": \"Developed new features\"\r\n        },\r\n        {\r\n            \"name\": \"Fix bugs\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/experiences/{existedId} -> 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET /v1.0/experiences/{{existedId}} -> 200\", () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"const expectedJson = pm.collectionVariables.get(\"experience\");\r",
+							"const actualJson = pm.response.json();\r",
+							"const _ = require(\"lodash\");\r",
+							"\r",
+							"console.log(expectedJson);\r",
+							"console.log(actualJson);\r",
+							"\r",
+							"pm.test(\"GET /v1.0/experiences/{{existedId}} -> hasARightBodyAnswer\", () => {\r",
+							"    pm.expect(_.isEqual(actualJson, expectedJson)).to.be.true;\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{uuid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/experiences/{wrongIdFormat} -> 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"/v1.0/experiences/{{wrongIdFormat}} -> 400\", () => {\r",
+							"    pm.response.to.have.status(400)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{wrongIdFormat}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						"{{wrongIdFormat}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/experiences/{{nonExistentId)} -> 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"/v1.0/experiences/{{nonExistentId}} -> 404\", () => {\r",
+							"    pm.response.to.have.status(404)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{nonExistentId}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						"{{nonExistentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/experiences/{{existedId}} -> 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"DELETE /v1.0/experiences/{{uuid}} -> 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{uuid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/experiences/{{existedId}} -> 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"DELETE /v1.0/experiences/{{uuid}} -> 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{uuid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "wrongIdFormat",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "nonExistentId",
+			"value": "11111111-1111-1111-1111-111111111111",
+			"type": "default"
+		},
+		{
+			"key": "uuid",
+			"value": ""
+		},
+		{
+			"key": "experience",
+			"value": ""
+		}
+	]
+}

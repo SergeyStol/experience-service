@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "31e1a302-20ad-432e-ba9d-461e8b8ce4e5",
+		"name": "experience-service/v1.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8538440"
+	},
+	"item": [
+		{
+			"name": "/experiences/{uuid}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{uuid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/experiences",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"periodFrom\": \"2023-01-01\",\r\n  \"periodTo\": \"2023-12-31\",\r\n  \"presentTime\": \"2023-11-16\",\r\n  \"industry\": \"Software Development\",\r\n  \"company\": \"Tech Solutions Inc.\",\r\n  \"position\": \"Senior Developer\",\r\n  \"achievements\": \"Led a team of developers to create a new product.\",\r\n  \"link\": \"http://example.com\",\r\n  \"duties\": [\r\n    {\r\n      \"name\": \"Developed new features\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/experiences/{{uuid}}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{uuid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1.0",
+						"experiences",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "uuid",
+			"value": "759599cb-27bc-487f-9cb1-e6f5ee840f22",
+			"type": "string"
+		}
+	]
+}
