@@ -5,6 +5,7 @@ import by.javaguru.experienceservice.features.industry.IndustryService;
 import by.javaguru.experienceservice.infrastructure.api.NotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

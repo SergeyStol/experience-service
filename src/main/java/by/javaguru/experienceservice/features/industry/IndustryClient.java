@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-/**
- * @author Sergey Stol
- * 2024-11-17
- */
-@FeignClient(name = "industry-service", url = "http://localhost:8081/v1.0/industries")
+
+@FeignClient(name = "industry-service", path = "/v1.0/industries/")
 public interface IndustryClient {
    @GetMapping("/{id}")
    IndustryDto getIndustryById(@PathVariable Long id);
