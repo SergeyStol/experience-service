@@ -7,12 +7,12 @@
 	},
 	"item": [
 		{
-			"name": "/experiences/{uuid}",
+			"name": "/experiences/{{uuid}}",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/{{uuid}}",
+					"raw": "{{protocol}}://{{host}}:{{port}}/v1.0/experiences/476adb05-33b9-407b-8fd4-0112dd8d9c6b",
 					"protocol": "{{protocol}}",
 					"host": [
 						"{{host}}"
@@ -21,7 +21,7 @@
 					"path": [
 						"v1.0",
 						"experiences",
-						"{{uuid}}"
+						"476adb05-33b9-407b-8fd4-0112dd8d9c6b"
 					]
 				}
 			},
@@ -34,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"periodFrom\": \"2023-01-01\",\r\n  \"periodTo\": \"2023-12-31\",\r\n  \"presentTime\": \"2023-11-16\",\r\n  \"industry\": \"Software Development\",\r\n  \"company\": \"Tech Solutions Inc.\",\r\n  \"position\": \"Senior Developer\",\r\n  \"achievements\": \"Led a team of developers to create a new product.\",\r\n  \"link\": \"http://example.com\",\r\n  \"duties\": [\r\n    {\r\n      \"name\": \"Developed new features\"\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n  \"periodFrom\": \"2023-01-01\",\r\n  \"periodTo\": \"2023-12-31\",\r\n  \"presentTime\": \"2023-11-16\",\r\n  \"industry\": {\r\n    \"id\": null,\r\n    \"name\": \"NewIndustry\"\r\n  },\r\n  \"company\": \"Tech Solutions Inc.\",\r\n  \"position\": \"Senior Developer\",\r\n  \"achievements\": \"Led a team of developers to create a new product.\",\r\n  \"link\": \"http://example.com\",\r\n  \"duties\": [\r\n    {\r\n      \"name\": \"Developed new features\"\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

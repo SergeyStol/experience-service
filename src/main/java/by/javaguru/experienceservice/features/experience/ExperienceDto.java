@@ -1,6 +1,7 @@
 package by.javaguru.experienceservice.features.experience;
 
 import by.javaguru.experienceservice.features.duties.DutyDto;
+import by.javaguru.experienceservice.features.industry.IndustryDto;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -15,7 +16,7 @@ public record ExperienceDto(
   LocalDate periodFrom,
   LocalDate periodTo,
   LocalDate presentTime,
-  String industry,
+  IndustryDto industry,
   String company,
   String position,
   String achievements,

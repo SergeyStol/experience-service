@@ -6,11 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +28,7 @@ import java.util.UUID;
 @Table(name = "duties")
 @Getter
 @Setter
-public class Duties {
+public class Duty {
    @Id
    @GeneratedValue(strategy = GenerationType.SEQUENCE)
    @Column(name = "id", nullable = false)
@@ -61,8 +59,8 @@ public class Duties {
       Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this)
         .getHibernateLazyInitializer().getPersistentClass() : this.getClass();
       if (thisEffectiveClass != oEffectiveClass) return false;
-      Duties duties = (Duties) o;
-      return id != null && Objects.equals(id, duties.id);
+      Duty duty = (Duty) o;
+      return id != null && Objects.equals(id, duty.id);
    }
 
    @Override

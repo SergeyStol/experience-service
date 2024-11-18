@@ -1,11 +1,7 @@
 package by.javaguru.experienceservice.features.experience;
 
-import by.javaguru.experienceservice.features.duties.Duties;
 import by.javaguru.experienceservice.features.duties.NewDutyDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import by.javaguru.experienceservice.features.industry.IndustryDto;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -18,7 +14,7 @@ public record NewExperienceDto(
   LocalDate periodFrom,
   LocalDate periodTo,
   LocalDate presentTime,
-  String industry,
+  IndustryDto industry,
   String company,
   String position,
   String achievements,

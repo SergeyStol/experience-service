@@ -10,6 +10,5 @@ import java.util.UUID;
  */
 public interface ExperienceRepository extends JpaRepository<Experience, Long> {
    Experience getExperienceByUuid(UUID uuid);
-
    void removeByUuid(UUID uuid);
 }

@@ -1,6 +1,6 @@
 package by.javaguru.experienceservice.features.experience;
 
-import by.javaguru.experienceservice.features.duties.Duties;
+import by.javaguru.experienceservice.features.duties.Duty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,7 +52,7 @@ public class Experience {
    private LocalDate presentTime;
 
    @Column(name = "industry")
-   private String industry;
+   private Long industryId;
 
    @Column(name = "company")
    private String company;
@@ -72,7 +72,7 @@ public class Experience {
      orphanRemoval = true,
      fetch = FetchType.EAGER
    )
-   private Set<Duties> duties = new LinkedHashSet<>();
+   private Set<Duty> duties = new LinkedHashSet<>();
 
    @PrePersist
    void prePersist() {
@@ -105,7 +105,7 @@ public class Experience {
              "periodFrom = " + periodFrom + ", " +
              "periodTo = " + periodTo + ", " +
              "presentTime = " + presentTime + ", " +
-             "industry = " + industry + ", " +
+             "industryId = " + industryId + ", " +
              "company = " + company + ", " +
              "position = " + position + ", " +
              "achievements = " + achievements + ", " +
