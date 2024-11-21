@@ -1,5 +1,7 @@
 package by.javaguru.experienceservice.features.industry;
 
+import jakarta.ws.rs.InternalServerErrorException;
+import jakarta.ws.rs.ServiceUnavailableException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,19 @@ public class IndustryService {
       return industryClient.getIndustryById(id);
    }
 
+   /**
+    * Adds a new industry.
+    *
+    * @param industryDto the IndustryDto object containing industry details to be added
+    * @return the IndustryDto object containing the saved industry details
+    * @throws InternalServerErrorException if the industry service is unavailable
+    */
    public IndustryDto addIndustry(IndustryDto industryDto) {
-      return industryClient.saveIndustry(industryDto);
+      try {
+         return industryClient.saveIndustry(industryDto);
+      } catch (ServiceUnavailableException e) {
+         throw new InternalServerErrorException("Something went wrong. Please, try again.");
+      }
    }
 
 }
