@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface IndustryClient {
    @CircuitBreaker(name = "get-industry-by-id", fallbackMethod = "getIndustryByIdFallback")
    @GetMapping("/{id}")
-   IndustryDto getIndustryById(@PathVariable Long id);
+   IndustryDto getIndustryById(@PathVariable(value = "id") Long id);
 
    @Retry(name = "save-industry", fallbackMethod = "saveIndustryFallback")
    @PostMapping
