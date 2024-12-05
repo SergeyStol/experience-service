@@ -1,6 +1,7 @@
 package by.javaguru.experienceservice.features.duties;
 
 import by.javaguru.experienceservice.features.experience.Experience;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,6 +42,7 @@ public class Duty {
    private String name;
 
    @ManyToOne
+   @JsonBackReference
    private Experience experience;
 
    @PrePersist

@@ -19,4 +19,8 @@ public interface ExperienceMapper {
    Experience toEntity(NewExperienceDto newExperienceDto, Long industryId);
    @Mapping(target = "industry", expression = "java(industry)")
    ExperienceDto toDto(Experience experience, IndustryDto industry);
+
+   @Mapping(target = ".", source = "experience") //
+   @Mapping(source = "industryDto", target = "industry")
+   ExperienceDto toDto(ExperienceAggregatorModel model);
 }

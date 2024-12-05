@@ -1,15 +1,11 @@
 package by.javaguru.experienceservice.tablesFiller;
 
 import by.javaguru.experienceservice.features.duties.Duty;
-import by.javaguru.experienceservice.features.duties.DutyDto;
-import by.javaguru.experienceservice.features.duties.NewDutyDto;
 import by.javaguru.experienceservice.features.experience.Experience;
 import by.javaguru.experienceservice.features.experience.ExperienceRepository;
-import by.javaguru.experienceservice.features.experience.ExperienceService;
-import by.javaguru.experienceservice.features.experience.NewExperienceDto;
-import by.javaguru.experienceservice.features.industry.IndustryDto;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +17,7 @@ import java.util.UUID;
  * @author Sergey Stol
  * 2024-11-17
  */
+@Slf4j
 @Component
 @Profile("with-filler")
 @AllArgsConstructor
@@ -46,6 +43,10 @@ public class TableFiller {
       Set.of(duty1, duty2));
       duty1.setExperience(experience);
       duty2.setExperience(experience);
-      repo.save(experience);
+      try {
+         repo.save(experience);
+      } catch (Exception e) {
+         log.info("Can't fill up database. Reason: {}", e.getMessage());
+      }
    }
 }

@@ -1,6 +1,7 @@
 package by.javaguru.experienceservice.features.experience;
 
 import by.javaguru.experienceservice.features.duties.Duty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -72,6 +73,7 @@ public class Experience {
      orphanRemoval = true,
      fetch = FetchType.EAGER
    )
+   @JsonManagedReference
    private Set<Duty> duties = new LinkedHashSet<>();
 
    @PrePersist
